@@ -1,18 +1,21 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { GoogleAuthProvider } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBZVMliQyxMD-zScpxdZ-VBEBtoJsBVcBU",
-  authDomain: "chat-app-4cf40.firebaseapp.com",
-  projectId: "chat-app-4cf40",
-  storageBucket: "chat-app-4cf40.appspot.com",
-  messagingSenderId: "613192483730",
-  appId: "1:613192483730:web:0e229bcd8ebdb1cfee374b",
-  measurementId: "G-Y1EHHLQPJN",
+  apiKey: "AIzaSyAJIC-NxA6OxFPlQo1yLP-T3hN4rgZAR9I",
+  authDomain: "codec-academy.firebaseapp.com",
+  projectId: "codec-academy",
+  storageBucket: "codec-academy.firebasestorage.app",
+  messagingSenderId: "880270944361",
+  appId: "1:880270944361:web:ddf4bff4ae5e76cda19af8",
+  measurementId: "G-90ECSJKZVV",
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const db = getFirestore(app);
 

@@ -22,6 +22,8 @@ const UsersList = ({
         query(collection(db, "users"), orderBy("displayName"))
       );
 
+      console.log("Fetched users:", allUsers.docs); // Add this line
+
       setUsersList(
         allUsers.docs.map((doc) => {
           return { id: doc.id, data: doc.data() };
