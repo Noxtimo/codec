@@ -1,11 +1,7 @@
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { db, provider } from "../firebase";
 import { Box, Button } from "@mui/material";
-import {
-  getAuth,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, signInWithPopup } from "firebase/auth";
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 const SignIn = () => {
@@ -14,42 +10,9 @@ const SignIn = () => {
       const auth = getAuth();
 
       const data = await signInWithPopup(auth, provider);
-
-      isExistingUser(data);
     } catch (err) {
       console.error(err);
     }
-  };
-
-  const anonymousSignIn = async () => {
-    try {
-      const auth = getAuth();
-
-      const data = await signInWithEmailAndPassword(
-        auth,
-        "TestAccount@gmail.com",
-        "TestAccount"
-      );
-
-      isExistingUser(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const isExistingUser = async (data) => {
-    const userDocRef = doc(db, "users", data.user.uid);
-
-    const userDocSnap = await getDoc(userDocRef);
-
-    if (userDocSnap.exists()) return;
-    saveUserData(data);
-  };
-
-  const subscribeToTestChat = async (data) => {
-    await updateDoc(doc(db, "chats", "xR86zgd95w4BJapy7klu"), {
-      members: arrayUnion(data.user.uid),
-    });
   };
 
   const saveUserData = async (data) => {
@@ -59,8 +22,6 @@ const SignIn = () => {
       email: data.user.email,
       photoURL: data.user.photoURL,
     });
-
-    subscribeToTestChat(data);
   };
 
   return (
@@ -96,15 +57,6 @@ const SignIn = () => {
           onClick={() => googleSignIn()}
         >
           Sign in with Google
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          fullWidth
-          onClick={() => anonymousSignIn()}
-          sx={{ mt: 2 }}
-        >
-          Sign in as a guest
         </Button>
       </Box>
     </Box>
